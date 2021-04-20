@@ -1,12 +1,25 @@
 package com.edisonmaciel.dscatalog.entities;
 
-import lombok.*;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -35,6 +48,6 @@ public class Product implements Serializable{
 	@JoinTable(name = "tb_product_category",
 		joinColumns = @JoinColumn(name = "product_id"),
 		inverseJoinColumns = @JoinColumn(name= "category_id"))
-	Set<Category> categories = new HashSet<>();
+	Set<Category> categoies = new HashSet<>();
 
 }

@@ -40,7 +40,7 @@ public class ProductService {
 	public ProductDTO findById(Long id) {
 		Optional<Product> obj = productRepository.findById(id);
 		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-		return new ProductDTO(entity, entity.getCategories());
+		return new ProductDTO(entity, entity.getCategoies());
 	}
 
 	@Transactional
@@ -81,10 +81,10 @@ public class ProductService {
 		entity.setImgUrl(dto.getImgUrl());
 		entity.setPrice(dto.getPrice());	
 		
-		entity.getCategories().clear();
+		entity.getCategoies().clear();
 		for(CategoryDTO catDto : dto.getCategories()) {
 			Category category = categoryRepository.getOne(catDto.getId());
-			entity.getCategories().add(category);
+			entity.getCategoies().add(category);
 		}
 	}
 }
