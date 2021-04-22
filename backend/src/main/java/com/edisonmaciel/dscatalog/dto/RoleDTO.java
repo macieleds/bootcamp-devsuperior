@@ -1,7 +1,9 @@
 package com.edisonmaciel.dscatalog.dto;
 
 import com.edisonmaciel.dscatalog.entities.Role;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 

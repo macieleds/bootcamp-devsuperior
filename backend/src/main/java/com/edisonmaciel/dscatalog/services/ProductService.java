@@ -1,17 +1,5 @@
 package com.edisonmaciel.dscatalog.services;
 
-import java.util.Optional;
-
-import javax.persistence.EntityNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.edisonmaciel.dscatalog.dto.CategoryDTO;
 import com.edisonmaciel.dscatalog.dto.ProductDTO;
 import com.edisonmaciel.dscatalog.entities.Category;
@@ -20,6 +8,16 @@ import com.edisonmaciel.dscatalog.repositories.CategoryRepository;
 import com.edisonmaciel.dscatalog.repositories.ProductRepository;
 import com.edisonmaciel.dscatalog.services.exceptions.DatabaseException;
 import com.edisonmaciel.dscatalog.services.exceptions.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 public class ProductService {

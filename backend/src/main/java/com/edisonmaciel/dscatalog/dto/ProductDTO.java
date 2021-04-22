@@ -2,7 +2,11 @@ package com.edisonmaciel.dscatalog.dto;
 
 import com.edisonmaciel.dscatalog.entities.Category;
 import com.edisonmaciel.dscatalog.entities.Product;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
