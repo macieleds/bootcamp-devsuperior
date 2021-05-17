@@ -3,6 +3,7 @@ package com.edisonmaciel.dscatalog.services;
 import com.edisonmaciel.dscatalog.dto.RoleDTO;
 import com.edisonmaciel.dscatalog.dto.UserDTO;
 import com.edisonmaciel.dscatalog.dto.UserInsertDTO;
+import com.edisonmaciel.dscatalog.dto.UserUpdateDTO;
 import com.edisonmaciel.dscatalog.entities.Role;
 import com.edisonmaciel.dscatalog.entities.User;
 import com.edisonmaciel.dscatalog.repositories.RoleRepository;
@@ -56,7 +57,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = userRepository.getOne(id);
 			copyDTOtoEntity(dto, entity);

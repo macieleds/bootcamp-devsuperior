@@ -2,12 +2,15 @@ package com.edisonmaciel.dscatalog.resources;
 
 import com.edisonmaciel.dscatalog.dto.UserDTO;
 import com.edisonmaciel.dscatalog.dto.UserInsertDTO;
+import com.edisonmaciel.dscatalog.dto.UserUpdateDTO;
 import com.edisonmaciel.dscatalog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,9 +61,9 @@ public class UserResource {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO dto) {
-		dto = userService.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
+		UserDTO newDto = userService.update(id, dto);
+		return ResponseEntity.ok().body(newDto);
 	}
 
 	@DeleteMapping(value = "/{id}")
