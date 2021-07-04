@@ -25,7 +25,7 @@ public class CategoryService {
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest){
 		Page<Category> list = categoryRepository.findAll(pageRequest);
-		return list.map(x -> new CategoryDTO(x));
+		return list.map(CategoryDTO::new);
 	}
 
 	@Transactional(readOnly = true)
@@ -37,7 +37,7 @@ public class CategoryService {
 
 	@Transactional
 	public CategoryDTO insert(CategoryDTO dto) {
-		Category entity = new Category();
+		var entity = new Category();
 		entity.setName(dto.getName());
 		entity = categoryRepository.save(entity);
 		return new CategoryDTO(entity);
@@ -46,7 +46,7 @@ public class CategoryService {
 	@Transactional
 	public CategoryDTO update(Long id, CategoryDTO dto) {
 		try {
-			Category entity = categoryRepository.getOne(id);
+			var entity = categoryRepository.getOne(id);
 			entity.setName(dto.getName());
 			entity = categoryRepository.save(entity);
 			return new CategoryDTO(entity);

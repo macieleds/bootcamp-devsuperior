@@ -29,21 +29,22 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(PageRequest pageRequest){
-		Page<Product> list = productRepository.findAll(pageRequest);
-		return list.map(x -> new ProductDTO(x));
+	public Page<ProductDTO> findAllPaged(Long categoryId, PageRequest pageRequest){
+		Category category = (categoryId == 0) ? null : categoryRepository.getOne(categoryId);
+		Page<Product> list = productRepository.find(category, pageRequest);
+		return list.map(ProductDTO::new);
 	}
 
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
 		Optional<Product> obj = productRepository.findById(id);
 		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-		return new ProductDTO(entity, entity.getCategoies());
+		return new ProductDTO(entity, entity.getCategories());
 	}
 
 	@Transactional
 	public ProductDTO insert(ProductDTO dto) {
-		Product entity = new Product();
+		var entity = new Product();
 		copyDTOtoEntity(dto, entity);
 		entity = productRepository.save(entity);
 		return new ProductDTO(entity);
@@ -52,7 +53,7 @@ public class ProductService {
 	@Transactional
 	public ProductDTO update(Long id, ProductDTO dto) {
 		try {
-			Product entity = productRepository.getOne(id);
+			var entity = productRepository.getOne(id);
 			copyDTOtoEntity(dto, entity);
 			entity = productRepository.save(entity);
 			return new ProductDTO(entity);
@@ -79,10 +80,10 @@ public class ProductService {
 		entity.setImgUrl(dto.getImgUrl());
 		entity.setPrice(dto.getPrice());	
 		
-		entity.getCategoies().clear();
+		entity.getCategories().clear();
 		for(CategoryDTO catDto : dto.getCategories()) {
-			Category category = categoryRepository.getOne(catDto.getId());
-			entity.getCategoies().add(category);
+			var category = categoryRepository.getOne(catDto.getId());
+			entity.getCategories().add(category);
 		}
 	}
 }

@@ -4,7 +4,6 @@ import com.edisonmaciel.dscatalog.dto.RoleDTO;
 import com.edisonmaciel.dscatalog.dto.UserDTO;
 import com.edisonmaciel.dscatalog.dto.UserInsertDTO;
 import com.edisonmaciel.dscatalog.dto.UserUpdateDTO;
-import com.edisonmaciel.dscatalog.entities.Role;
 import com.edisonmaciel.dscatalog.entities.User;
 import com.edisonmaciel.dscatalog.repositories.RoleRepository;
 import com.edisonmaciel.dscatalog.repositories.UserRepository;
@@ -31,7 +30,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
 
-	private static Logger logger = LoggerFactory.getLogger(UserService.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private UserRepository userRepository;
@@ -45,7 +44,7 @@ public class UserService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(PageRequest pageRequest){
 		Page<User> list = userRepository.findAll(pageRequest);
-		return list.map(x -> new UserDTO(x));
+		return list.map(UserDTO::new);
 	}
 
 	@Transactional(readOnly = true)
@@ -57,7 +56,7 @@ public class UserService implements UserDetailsService {
 
 	@Transactional
 	public UserDTO insert(UserInsertDTO dto) {
-		User entity = new User();
+		var entity = new User();
 		copyDTOtoEntity(dto, entity);
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = userRepository.save(entity);
@@ -67,7 +66,7 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
-			User entity = userRepository.getOne(id);
+			var entity = userRepository.getOne(id);
 			copyDTOtoEntity(dto, entity);
 			entity = userRepository.save(entity);
 			return new UserDTO(entity);
@@ -95,14 +94,14 @@ public class UserService implements UserDetailsService {
 		
 		entity.getRoles().clear();
 		for(RoleDTO roleDTO : dto.getRoles()) {
-			Role role = roleRepository.getOne(roleDTO.getId());
+			var role = roleRepository.getOne(roleDTO.getId());
 			entity.getRoles().add(role);
 		}
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-			User user = userRepository.findByEmail(username);
+			var user = userRepository.findByEmail(username);
 			if (user == null) {
 				logger.error("User not found: " + username);
 				throw new UsernameNotFoundException("Email not found");
