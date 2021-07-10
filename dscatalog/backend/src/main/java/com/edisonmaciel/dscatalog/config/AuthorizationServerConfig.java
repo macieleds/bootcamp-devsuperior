@@ -69,6 +69,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         .accessTokenConverter(accessTokenConverter)
         .tokenEnhancer(chain);
     }
-
-
 }
