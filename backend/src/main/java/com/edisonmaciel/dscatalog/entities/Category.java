@@ -1,6 +1,7 @@
 package com.edisonmaciel.dscatalog.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +18,10 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.Instant;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_category")
 public class Category implements Serializable {
@@ -29,7 +29,9 @@ public class Category implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
 	private Long id;
+
 	private String name;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
